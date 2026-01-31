@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ movie.title }}
+{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Details about "{{ movie.title }}"</h2>
+    
+        <div class="card mb-3" style="max-width: 100%;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    {% if movie.poster %}
+                        <img src="{{ movie.poster }}" class="img-fluid rounded-start" alt="Poster of {{ movie.title }}">
+                    {% else %}
+                        <p>Poster not available.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ movie.title }}</h4>
+                        {% if movie.year %}
+                            <p class="card-text"><strong>Year:</strong> {{ movie.year }}</p>
+                        {% endif %}
+
+                        {% if movie.directors %}
+                            <p><strong>Director(s):</strong> {{ movie.directors | join(", ") }}</p>
+                        {% else %}
+                            <p><strong>Director(s):</strong> Not available</p>
+                        {% endif %}
+
+                        {% if movie.cast %}
+                            <p class="card-text"><strong>cast:</strong> {{ movie.cast | join(", ") }}</p>
+                        {% endif %}
+
+                        {% if movie.genres %}
+                            <p class="card-text"><strong>genres:</strong> {{ movie.genres | join(", ") }}</p>
+                        {% endif %}
+
+                        {% if movie.streaming %}
+                            <p class="card-text"><strong>Streaming:</strong></p>
+                            <ul>
+                                {% for service in movie.streaming %}
+                                    <li>
+                                        <a href="{{ service.link }}" target="_blank">
+                                            {{ service.name }} ({{ service.type }})
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
